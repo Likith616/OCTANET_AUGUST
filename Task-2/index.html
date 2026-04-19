@@ -1,17 +1,92 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>To-Do List</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartPhone Advisor</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="container">
-        <h1>To-Do List</h1>
-        <input type="text" id="taskInput" placeholder="Add a task">
-        <button id="addButton"><i class = "fas fa-plus"></i></button>
-        <ul id="taskList"></ul>
-    </div>
-    <script src="script.js"></script>
+  <main class="app-shell">
+    <header>
+      <h1>SmartPhone Advisor</h1>
+      <p>
+        Compare phones by benchmark performance, battery life, camera quality,
+        and value so you can find the best option for your needs.
+      </p>
+    </header>
+
+    <section class="panel" aria-label="Preferences form">
+      <h2>Your Preferences</h2>
+      <form id="preferencesForm" class="preferences-grid">
+        <label>
+          Budget (USD)
+          <input id="budget" type="number" min="150" step="10" value="900" required />
+        </label>
+
+        <label>
+          Minimum battery life (hours)
+          <input id="minBattery" type="number" min="8" max="30" step="1" value="12" required />
+        </label>
+
+        <label>
+          Preferred brand
+          <select id="brandPreference">
+            <option value="Any">Any</option>
+            <option value="Apple">Apple</option>
+            <option value="Samsung">Samsung</option>
+            <option value="Google">Google</option>
+            <option value="OnePlus">OnePlus</option>
+            <option value="Xiaomi">Xiaomi</option>
+          </select>
+        </label>
+
+        <label>
+          Max recommendations
+          <input id="topN" type="number" min="1" max="6" step="1" value="3" />
+        </label>
+
+        <fieldset class="weight-group">
+          <legend>Priority Weights (%)</legend>
+          <p class="hint">Set how important each factor is to you. Total must equal 100.</p>
+
+          <label>
+            Performance
+            <input id="weightPerformance" type="number" min="0" max="100" value="30" required />
+          </label>
+
+          <label>
+            Battery
+            <input id="weightBattery" type="number" min="0" max="100" value="25" required />
+          </label>
+
+          <label>
+            Camera
+            <input id="weightCamera" type="number" min="0" max="100" value="25" required />
+          </label>
+
+          <label>
+            Price-to-performance
+            <input id="weightValue" type="number" min="0" max="100" value="20" required />
+          </label>
+
+          <output id="weightStatus" class="weight-status" for="weightPerformance weightBattery weightCamera weightValue"></output>
+        </fieldset>
+
+        <div class="actions">
+          <button type="submit" id="recommendBtn">Get Recommendations</button>
+          <button type="button" id="resetBtn" class="ghost">Reset</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel" aria-live="polite" aria-label="Recommendation results">
+      <h2>Recommended Phones</h2>
+      <p id="resultSummary" class="hint">Fill in your preferences and click “Get Recommendations”.</p>
+      <div id="results" class="results"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
 </body>
-</html> 
+</html>
